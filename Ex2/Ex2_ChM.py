@@ -66,7 +66,7 @@ for i in range(10):
     print('Шаг: ' + str(i_h_printable) + '    Значение производной: ' + str(abs_eps) + '\n');
     i_h = i_h - delta_h;
 
-
+print(decimal.Decimal(inp_x).exp().normalize());
 # Посмотрим на абсолютную погрешность при каждом шаге:
 
 # In[5]:
@@ -107,8 +107,9 @@ print('Максимальная конечная разность 3-его по�
 # In[8]:
 
 
-changeable_const = max_dif_y / decimal.Decimal(0.001);
-operation_delta = max_dif_y / (decimal.Decimal(6.0) * decimal.Decimal(0.1));
+changeable_const = decimal.Decimal(1.25).exp();
+print('Максимум 3-ей производной: ' + str(changeable_const));
+operation_delta = (changeable_const * decimal.Decimal(0.01) ) / decimal.Decimal(6.0);
 print('Погрешность оператора: ' + str(operation_delta));
 
 
@@ -126,7 +127,7 @@ print('Вычислительная погрешность  ' + str(variables_de
 # In[10]:
 
 
-optimal_h = (decimal.Decimal(3.0) * decimal.Decimal(0.00005)) / changeable_const;
+optimal_h = ((decimal.Decimal(3.0) * decimal.Decimal(0.00005)) / (changeable_const)) ** (decimal.Decimal(1.0) / decimal.Decimal(3.0));
 print('Оптимальный шаг: ' + str(optimal_h));
 
 
