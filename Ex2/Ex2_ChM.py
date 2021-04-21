@@ -66,7 +66,7 @@ for i in range(10):
     print('Шаг: ' + str(i_h_printable) + '    Значение производной: ' + str(abs_eps) + '\n');
     i_h = i_h - delta_h;
 
-
+print(decimal.Decimal(inp_x).exp().normalize());
 # Посмотрим на абсолютную погрешность при каждом шаге:
 
 # In[5]:
