@@ -81,40 +81,21 @@ for i in range(10):
 
 
 # Найдем оптимальный шаг численного дифференцироварния.
-# Для этого возьмем сетку с узлами point_x[] = 1.13 .. 1.17.
+
+# Чтобы оценить погрешность оператора, ручками найдем производную 3-его(?) порядка, и найдем ее максимум. Он достигается в точке x = 1.25
 
 # In[6]:
 
 
-point_x = [1.13, 1.14, 1.15, 1.16, 1.17];
-
-
-# Чтобы оценить погрешность оператора, найдем конечные разности 3-его порядка и найдем среди них максимум.
-
-# In[7]:
-
-
-point_y = [];
-for i in range(len(point_x)):
-    point_y.append(decimal.Decimal(point_x[i]).exp());
-decimal.getcontext().prec = 10;
-dif_y = CreateFiniteDifferences(point_y, 3);
-print(dif_y);
-max_dif_y = max(dif_y);
-print('Максимальная конечная разность 3-его порядка: ' + str(max_dif_y));
-
-
-# In[8]:
-
-
-changeable_const = max_dif_y / decimal.Decimal(0.001);
-operation_delta = max_dif_y / (decimal.Decimal(6.0) * decimal.Decimal(0.1));
+changeable_const = decimal.Decimal(1.25).exp();
+print('Максимум 3-ей производной: ' + str(changeable_const));
+operation_delta = (changeable_const * decimal.Decimal(0.01) ) / decimal.Decimal(6.0);
 print('Погрешность оператора: ' + str(operation_delta));
 
 
 # Определим вычислительную погрешность  
 
-# In[9]:
+# In[7]:
 
 
 variables_delta = decimal.Decimal(0.00005) / decimal.Decimal(0.1);
@@ -123,10 +104,10 @@ print('Вычислительная погрешность  ' + str(variables_de
 
 # Определим оптимальный шаг:
 
-# In[10]:
+# In[8]:
 
 
-optimal_h = (decimal.Decimal(3.0) * decimal.Decimal(0.00005)) / changeable_const;
+optimal_h = ((decimal.Decimal(3.0) * decimal.Decimal(0.00005)) / (changeable_const)) ** (decimal.Decimal(1.0) / decimal.Decimal(3.0));
 print('Оптимальный шаг: ' + str(optimal_h));
 
 
@@ -134,7 +115,7 @@ print('Оптимальный шаг: ' + str(optimal_h));
 
 # ### Изменение абсолюной погрешности на заданнной сетке при изменении шага сетки:
 
-# In[11]:
+# In[9]:
 
 
 i_h = start_h;
@@ -147,7 +128,7 @@ for i in range(10):
 
 # ### Оценка общей погрешности при шаге 0.1:
 
-# In[12]:
+# In[10]:
 
 
 print(operation_delta + variables_delta);
@@ -155,7 +136,7 @@ print(operation_delta + variables_delta);
 
 # ### Оптимальный шаг:
 
-# In[13]:
+# In[11]:
 
 
 print(optimal_h);
